@@ -1,0 +1,22 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button (click)="goBack()">
+      <ion-icon name="arrow-round-back" color="light" size="large"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let object of list" (click)="goToDetail(object)">
+    <span *ngIf="!object.read"></span>
+    <ion-card-header>
+      <small class="time">5 minutes ago!</small>
+    </ion-card-header>
+    <ion-card-content>
+      <h2 class="title">{{ object.title }}</h2>
+      <p class="body">{{ object.body }}</p>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

@@ -9,3 +9,25 @@
 @import '~@ionic/angular/css/text-alignment.css';
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
+
+.ion-page{
+    background: var(--ion-color-medium-shade);
+    ion-content{
+        --background: transparent;
+    }
+}
+ion-toolbar{
+    --padding-y: 1.3em;
+    --padding-x: 1em;
+    --background: transparent;
+    --padding-top: var(--padding-y);
+    --padding-bottom: var(--padding-y);
+    --padding-start: var(--padding-x);
+    --padding-end: var(--padding-x);
+    .avatar ion-icon{font-size: 3em;}
+}
+.modal{
+    --max-width: 85%;
+    --max-height: 70%;
+    --border-radius: 15px;
+}

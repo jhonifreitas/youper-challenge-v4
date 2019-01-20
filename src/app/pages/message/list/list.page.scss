@@ -1,0 +1,22 @@
+ion-card{
+    --background: #FFF;
+    overflow: visible;
+    &, ion-card-header{ border-radius: 15px; }
+    .time{ color: var(--ion-color-medium); }
+    .body{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    span{
+        position: absolute;
+        z-index: 9;
+        top: -6%;
+        right: -3%;
+        width: 20px;
+        height: 20px;
+        border-radius: 50px;
+        background: var(--ion-color-youper);
+        border: 2px solid var(--ion-color-medium-shade);
+    }
+}

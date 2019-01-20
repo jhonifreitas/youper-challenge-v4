@@ -1,0 +1,14 @@
+<ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button class="avatar">
+      <ion-icon name="contact" color="light" *ngIf="!avatar"></ion-icon>
+      <ion-avatar *ngIf="avatar"><img [src]="avatar"></ion-avatar>
+    </ion-button>
+  </ion-buttons>
+  <ion-buttons slot="end">
+    <ion-button class="notification" (click)="goToMessages()">
+      <ion-icon name="notifications" color="light" size="large"></ion-icon>
+      <span *ngIf="hasMessage"></span>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
