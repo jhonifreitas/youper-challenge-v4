@@ -27,7 +27,6 @@ export class HomePage {
   ngOnInit(){
     this.api.getUser(this.user_id).subscribe(data => {
       data.id = this.user_id
-      this.storage.setUser(data);
       this.user = data
     });
 
@@ -47,7 +46,8 @@ export class HomePage {
 
     this.camera.getPicture(options).then(imageData => {
       this.user.avatar = 'data:image/jpeg;base64,' + imageData;
-      this.api.putUser(this.user, this.user.id)
+      this.api.putUser(this.user, this.user.id);
+      this.storage.setUser(this.user);
     }, (err) => {
       console.log(err)
     })
