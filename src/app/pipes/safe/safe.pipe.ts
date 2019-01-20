@@ -2,8 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
-  name: 'safe',
-  // pure: false
+  name: 'safe'
 })
 export class SafePipe implements PipeTransform {
 
@@ -12,7 +11,6 @@ export class SafePipe implements PipeTransform {
   ) { }
 
   transform(content) {
-    return this.sanitizer.bypassSecurityTrustHtml(content);
+    return this.sanitizer.bypassSecurityTrustHtml(content)
   }
-
 }

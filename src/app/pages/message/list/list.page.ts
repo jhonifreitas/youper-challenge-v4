@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 
 import { DetailPage } from '../detail/detail.page';
+import { Message } from '../../../interfaces/message';
+import { ApiService } from '../../../services/api/api.service';
+import { StorageService } from '../../../services/storage/storage.service';
 
 @Component({
   selector: 'app-message-list',
@@ -10,27 +13,20 @@ import { DetailPage } from '../detail/detail.page';
 })
 export class ListPage implements OnInit {
 
-  private list: Array<Object> = [
-    {
-      date: Date(),
-      title: 'New Feature!',
-      body: 'Now you can customize your avatar uploading your selfie.<br/>Just click on the avatar, take or select a picture and save.<br/><img src="http://server/newfeature.png"/>',
-      read: false
-    },
-    {
-      date: Date(),
-      title: 'New Feature!',
-      body: 'Now you can customize your avatar uploading your selfie.<br/>Just click on the avatar, take or select a picture and save.<br/><img src="http://server/newfeature.png"/>',
-      read: true
-    }
-  ]
+  private list: Array<Message> = [];
 
   constructor(
+    private api: ApiService,
     private navCtrl: NavController,
+    private storage: StorageService,
     private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
+    let user_id = this.storage.getUser().id;
+    this.api.getMessages(user_id).subscribe(data => {
+      this.list = data;
+    })
   }
 
   async goToDetail(message){
@@ -38,10 +34,10 @@ export class ListPage implements OnInit {
       component: DetailPage,
       componentProps: {'object': message}
     });
-    return await modal.present()
+    return await modal.present();
   }
 
   goBack(){
-    this.navCtrl.goBack()
+    this.navCtrl.goBack();
   }
 }

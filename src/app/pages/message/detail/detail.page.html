@@ -1,9 +1,9 @@
 <ion-content padding>
-  <small>{{ object.date }}</small>
+  <small>{{ object.createdAt | timeAgo }}!</small>
   <h2>{{ object.title }}</h2>
-  <div>{{ object.body | safe }}</div>
+  <div [innerHtml]="object.body | safe"></div>
 
   <div text-center margin-top>
-    <ion-button shape="round" color="youper">Got It</ion-button>
+    <ion-button shape="round" color="youper" (click)="close()">Got It</ion-button>
   </div>
 </ion-content>

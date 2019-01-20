@@ -8,10 +8,10 @@
 
 <ion-content padding>
 
-  <ion-card *ngFor="let object of list" (click)="goToDetail(object)">
-    <span *ngIf="!object.read"></span>
+  <ion-card *ngFor="let object of list" (click)="goToDetail(object)" [class.new]="object.new">
+    <span></span>
     <ion-card-header>
-      <small class="time">5 minutes ago!</small>
+      <small class="time">{{ object.createdAt | timeAgo }}!</small>
     </ion-card-header>
     <ion-card-content>
       <h2 class="title">{{ object.title }}</h2>

@@ -1,5 +1,7 @@
 {
   "name": "youper-v4",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
