@@ -14,8 +14,6 @@ import { StorageService } from './services/storage/storage.service';
 })
 export class AppComponent {
 
-  private user: User = {id: 't9l18UKPut3npvMzNNjC', avatar: '', createdAt: new Date().getTime()};
-
   constructor(
     private api: ApiService,
     private platform: Platform,
@@ -32,11 +30,6 @@ export class AppComponent {
         this.statusBar.styleDefault();
         this.splashScreen.hide();
       }
-
-      this.storage.setUser(this.user);
-      this.api.getUser(this.user.id).subscribe(data => {
-        this.storage.setUser({ id: this.user.id, ...data});
-      });
     });
   }
 }

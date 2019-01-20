@@ -1,8 +1,8 @@
 <ion-toolbar>
   <ion-buttons slot="start">
     <ion-button class="avatar" (click)="setAvatar()">
-      <ion-icon name="contact" color="light" *ngIf="!(user$ | async)?.avatar"></ion-icon>
-      <ion-avatar *ngIf="(user$ | async)?.avatar"><img [src]="(user$ | async)?.avatar"></ion-avatar>
+      <ion-avatar *ngIf="user && user.avatar else loading"><img [src]="user.avatar"></ion-avatar>
+      <ng-template #loading><ion-icon name="contact" color="light"></ion-icon></ng-template>
     </ion-button>
   </ion-buttons>
   <ion-buttons slot="end">

@@ -14,6 +14,7 @@ import { StorageService } from '../../services/storage/storage.service';
 export class HomePage {
 
   private user: User;
+  private user_id: string = 't9l18UKPut3npvMzNNjC';
   private hasMessage: boolean = false;
 
   constructor(
@@ -24,10 +25,15 @@ export class HomePage {
   ){ }
 
   ngOnInit(){
-    this.user = this.storage.getUser();
-    this.api.getMessages(this.user.id).subscribe(data => {
+    this.api.getUser(this.user_id).subscribe(data => {
+      data.id = this.user_id
+      this.storage.setUser(data);
+      this.user = data
+    });
+
+    this.api.getMessages(this.user_id).subscribe(data => {
       this.hasMessage = data.filter(x => x.new == true).length > 0
-    })
+    });
   }
 
   setAvatar(){
