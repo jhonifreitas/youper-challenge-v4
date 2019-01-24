@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import { User } from '../../interfaces/user';
+import { Message } from '../../interfaces/message';
 import { ApiService } from '../../services/api/api.service';
 import { StorageService } from '../../services/storage/storage.service';
 
@@ -14,7 +15,7 @@ import { StorageService } from '../../services/storage/storage.service';
 export class HomePage {
 
   private user: User;
-  private user_id: string = 't9l18UKPut3npvMzNNjC';
+  private user_id: string = 'youper-v4';
   private hasMessage: boolean = false;
 
   constructor(
@@ -30,7 +31,7 @@ export class HomePage {
       this.user = data
     });
 
-    this.api.getMessages(this.user_id).subscribe(data => {
+    this.api.getMessages().then((data: Message[]) => {
       this.hasMessage = data.filter(x => x.new == true).length > 0
     });
   }
@@ -46,7 +47,7 @@ export class HomePage {
 
     this.camera.getPicture(options).then(imageData => {
       this.user.avatar = 'data:image/jpeg;base64,' + imageData;
-      this.api.putUser(this.user, this.user.id);
+      this.api.putUser(this.user.id, this.user);
       this.storage.setUser(this.user);
     }, (err) => {
       console.log(err)

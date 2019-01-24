@@ -21,7 +21,7 @@ export class DetailPage implements OnInit {
 
   ngOnInit() {
     this.object.new = false;
-    this.api.putMessage(this.object, this.object.id)
+    this.api.putMessage(this.object.id, this.object)
   }
 
   close(){

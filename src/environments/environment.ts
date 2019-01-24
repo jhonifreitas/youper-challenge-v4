@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  api_url: 'https://my-json-server.typicode.com/jhonifreitas/youper-challenge-v1/',
   firebase: {
     apiKey: "AIzaSyDcFg_Qg8ardx7PcLzC9GAzayLxXLs5UQg",
     authDomain: "youper-8346b.firebaseapp.com",

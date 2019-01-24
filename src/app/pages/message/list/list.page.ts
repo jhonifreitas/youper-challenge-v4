@@ -24,12 +24,12 @@ export class ListPage implements OnInit {
 
   ngOnInit() {
     let user_id = this.storage.getUser().id;
-    this.api.getMessages(user_id).subscribe(data => {
+    this.api.getMessages().then((data: Message[]) => {
       this.list = data;
     })
   }
 
-  async goToDetail(message){
+  async goToDetail(message: Message){
     const modal = await this.modalCtrl.create({
       component: DetailPage,
       componentProps: {'object': message}

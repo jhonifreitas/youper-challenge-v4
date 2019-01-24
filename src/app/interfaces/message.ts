@@ -1,5 +1,5 @@
 export interface Message {
-  id?: string;
+  id?: number;
   user: string;
   title: string;
   body: string;

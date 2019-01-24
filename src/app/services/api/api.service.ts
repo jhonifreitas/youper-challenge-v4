@@ -1,40 +1,47 @@
-import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 import { User } from '../../interfaces/user';
 import { Message } from '../../interfaces/message';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
+  private API_URL: string = environment.api_url;
   private userCollection: AngularFirestoreCollection<User>;
-  private messagesCollection: AngularFirestoreCollection<Message>;
 
-  constructor(private db: AngularFirestore) {
+  constructor(
+    private http: HttpClient,
+    private db: AngularFirestore
+  ) {
     this.userCollection = db.collection<User>('users');
-    this.messagesCollection = db.collection<Message>('messages');
   }
 
   // MESSAGES
-  getMessages(user_id: string) {
-    return this.db.collection<Message>('messages', ref => ref.where('user', '==', user_id))
-    .snapshotChanges()
-    .pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
+  getMessages() {
+    return new Promise((resolve, reject) => {
+      this.http.get(this.API_URL + 'messages/')
+      .subscribe(res => {
+        resolve(res)
+      }, err => {
+        reject(err)
       })
-    );
+    })
   }
 
-  putMessage(message: Message, id: string) {
-    return this.messagesCollection.doc(id).update(message);
+  putMessage(id: number, message: Message) {
+    return new Promise((resolve, reject) => {
+      this.http.put(this.API_URL + 'messages/'+id, message)
+      .subscribe(res => {
+        resolve(res)
+      }, err => {
+        reject(err)
+      })
+    })
   }
 
   // USER
@@ -42,7 +49,7 @@ export class ApiService {
     return this.userCollection.doc<User>(id).valueChanges();
   }
 
-  putUser(user: User, id: string) {
+  putUser(id: string, user: User) {
     return this.userCollection.doc(id).update(user);
   }
 }
