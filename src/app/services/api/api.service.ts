@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { User } from '../../interfaces/user';
 import { Message } from '../../interfaces/message';
 import { environment } from '../../../environments/environment';
+import { FunctionsService } from '../functions/functions.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private functions: FunctionsService
   ) {
     this.userCollection = db.collection<User>('users');
   }
@@ -28,6 +30,7 @@ export class ApiService {
       .subscribe(res => {
         resolve(res)
       }, err => {
+        this.showError(err);
         reject(err)
       })
     })
@@ -39,6 +42,7 @@ export class ApiService {
       .subscribe(res => {
         resolve(res)
       }, err => {
+        this.showError(err);
         reject(err)
       })
     })
@@ -50,6 +54,12 @@ export class ApiService {
   }
 
   putUser(id: string, user: User) {
+    delete user.id;
     return this.userCollection.doc(id).update(user);
+  }
+
+  // SHOW ERROR
+  showError(error){
+    this.functions.message('Error! '+error);
   }
 }

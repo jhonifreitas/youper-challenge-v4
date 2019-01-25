@@ -6,6 +6,7 @@ import { User } from '../../interfaces/user';
 import { Message } from '../../interfaces/message';
 import { ApiService } from '../../services/api/api.service';
 import { StorageService } from '../../services/storage/storage.service';
+import { FunctionsService } from '../../services/functions/functions.service';
 
 @Component({
   selector: 'app-home',
@@ -23,16 +24,17 @@ export class HomePage {
     private api: ApiService,
     private navCtrl: NavController,
     private storage: StorageService,
+    private functions: FunctionsService
   ){ }
 
   ngOnInit(){
     this.api.getUser(this.user_id).subscribe(data => {
-      data.id = this.user_id
-      this.user = data
+      data.id = this.user_id;
+      this.user = data;
     });
 
     this.api.getMessages().then((data: Message[]) => {
-      this.hasMessage = data.filter(x => x.new == true).length > 0
+      this.hasMessage = data.filter(x => x.new == true).length > 0;
     });
   }
 
@@ -49,12 +51,13 @@ export class HomePage {
       this.user.avatar = 'data:image/jpeg;base64,' + imageData;
       this.api.putUser(this.user.id, this.user);
       this.storage.setUser(this.user);
+      this.functions.message('Success! Picture saved.');
     }, (err) => {
-      console.log(err)
+      this.functions.message('Error! '+err);
     })
   }
 
   goToMessages(){
-    this.navCtrl.navigateForward('message')
+    this.navCtrl.navigateForward('message');
   }
 }
