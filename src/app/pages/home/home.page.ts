@@ -53,7 +53,7 @@ export class HomePage {
       this.storage.setUser(this.user);
       this.functions.message('Success! Picture saved.');
     }, (err) => {
-      this.functions.message('Error! '+err);
+      this.functions.message('Attention! '+err);
     })
   }
 
