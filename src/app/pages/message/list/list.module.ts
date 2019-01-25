@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TimeAgoPipe } from 'time-ago-pipe';
-import { SafePipe } from '../../../pipes/safe/safe.pipe';
 
 import { ListPage } from './list.page';
 import { DetailPage } from '../detail/detail.page';
@@ -22,7 +21,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ListPage, DetailPage, SafePipe, TimeAgoPipe],
+  declarations: [ListPage, DetailPage, TimeAgoPipe],
   entryComponents: [DetailPage]
 })
 export class MessagePageModule {}
